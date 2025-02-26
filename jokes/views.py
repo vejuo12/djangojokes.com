@@ -1,3 +1,8 @@
-from django.shortcuts import render
+from django.views.generic import ListView, DetailView
+from .models import Joke
 
-# Create your views here.
+class JokeDetailView(DetailView):
+    model = Joke
+
+class JokeListView(ListView):
+    model = Joke
