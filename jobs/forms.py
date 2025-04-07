@@ -1,24 +1,35 @@
 import datetime
 from django import forms
+from django.core.exceptions import ValidationError
+from django.core.validators import URLValidator
+
+def validate_future_date(value):
+    if value < datetime.datetime.now().date():
+        raise ValidationError(
+            message=f'{value} is in the past.', code='past_date'
+        )
 
 class JobAplicationForm(forms.Form):
     first_name = forms.CharField(
         widget=forms.TextInput(
-            attrs={
-                'autofocus': True
-            }
+            attrs={'autofocus': True}
         )
+        
+
     )
 
     last_name = forms.CharField()
-    email = forms.EmailField()
+    email = forms.EmailField(
+        widget=forms.EmailInput(
+            attrs={'placeholder': 'email@example.com', 'size': '25'}
+        )
+    )
     website = forms.URLField(
         required=False,
         widget=forms.URLInput(
-            attrs={
-                'size': '50'
-            }
-        )
+            attrs={'placeholder': 'https://www.example.com', 'size': '50'}
+        ),
+        validators=[URLValidator(schemes=['http', 'https'])]
         
     )
     EMPLOYMENT_CHOICES = [
@@ -37,8 +48,11 @@ class JobAplicationForm(forms.Form):
     start_date = forms.DateField(
         help_text="The earliest date you can start working.",
         widget=forms.SelectDateWidget(
-            years=[current_year, next_year]
-        )
+            years=[current_year, next_year],
+            attrs={'style': 'width: 31%; display: inline-block; margin: 0 1%'}
+        ),
+        validators=[validate_future_date],
+        error_messages = {'past_date': 'Please enter a future date.'}
         
     )
     
