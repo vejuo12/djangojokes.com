@@ -1,12 +1,25 @@
+import datetime
 from django import forms
 
 class JobAplicationForm(forms.Form):
-    first_name = forms.CharField()
+    first_name = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                'autofocus': True
+            }
+        )
+    )
+
     last_name = forms.CharField()
     email = forms.EmailField()
     website = forms.URLField(
         required=False,
-        label="Website",
+        widget=forms.URLInput(
+            attrs={
+                'size': '50'
+            }
+        )
+        
     )
     EMPLOYMENT_CHOICES = [
         (None, '--Please choose--'),
@@ -17,12 +30,16 @@ class JobAplicationForm(forms.Form):
 
     employment_type = forms.ChoiceField(
         choices=EMPLOYMENT_CHOICES,
-        label="Employment Type"
     )
+    current_year = datetime.datetime.now().year
+    next_year = current_year + 1
 
     start_date = forms.DateField(
-        label="Start Date",
         help_text="The earliest date you can start working.",
+        widget=forms.SelectDateWidget(
+            years=[current_year, next_year]
+        )
+        
     )
     
     WEEKDAY_CHOICES = [
@@ -36,17 +53,26 @@ class JobAplicationForm(forms.Form):
     available_days = forms.MultipleChoiceField(
         choices=WEEKDAY_CHOICES,
         help_text="Select all days that you can work.",
-        label="Available Days"
+        widget=forms.CheckboxSelectMultiple(
+            attrs={'checked':True}
+        )
     )
 
     desired_hourly_wage = forms.DecimalField(
-        label="Desired Hourly Wage",
         max_digits=6,   
         decimal_places=2,  
         min_value=0,
+        widget=forms.NumberInput(
+            attrs={'min' : '10', 'max': '100', 'step' : '.25'}
+        )
+        
     )
 
-    cover_letter = forms.CharField(label="Cover Letter")
+    cover_letter = forms.CharField(
+        widget=forms.Textarea(
+            attrs={'cols': '75', 'rows': '5'}
+        )
+    )
 
     confirmation = forms.BooleanField(
         required=True,
