@@ -174,3 +174,5 @@ cython_debug/
 
 solutions
 starter-code
+sendgrid.env
+local_settings.py
