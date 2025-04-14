@@ -56,6 +56,8 @@ INSTALLED_APPS = [
      
 ]
 
+ACCOUNT_SIGNUP_FORM_CLASS = 'users.forms.SignupForm'
+
 SITE_ID = 1
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
