@@ -1,8 +1,12 @@
 from django.db import models
+from django.conf import settings
 from django.urls import reverse
 from common.utils.text import unique_slug
 
 class Joke(models.Model):
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
     
     question = models.TextField(max_length=200)
     answer = models.TextField(max_length=100, blank=True)
