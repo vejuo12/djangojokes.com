@@ -1,3 +1,4 @@
+import filetype
 from datetime import datetime
 
 from django.core.exceptions import ValidationError
@@ -9,6 +10,11 @@ def validate_future_date(value):
         raise ValidationError(
             message=f'{value} is in the past.', code='past_date'
         )
+
+def validate_pdf(value):
+    kind = filetype.guess(value)
+    if not kind or kind.mime != 'application/pdf':
+        raise ValidationError('that is not a pdf file.')
 
 class Job(models.Model):
 
@@ -38,9 +44,12 @@ class Applicant(models.Model):
         help_text='The earliest date you can start working',
         validators=[validate_future_date]
     )
-    available_days = models.CharField(max_length=20)
-    desirely_hourly_wage = models.DecimalField(max_digits=5, decimal_places=2)
+    available_days = models.CharField(max_length=50)
+    desired_hourly_wage = models.DecimalField(max_digits=5, decimal_places=2)
     cover_letter = models.TextField(max_length=200)
+    resume = models.FileField(
+    upload_to='private/resumes', blank=True, help_text='PDFs only', validators=[validate_pdf]
+    )
     confirmation = models.BooleanField()
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
