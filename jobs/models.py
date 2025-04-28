@@ -1,7 +1,7 @@
 import filetype
 from datetime import datetime
 
-from private_storage.fields import PrivateFileField
+from djangojokes.storage_backends import PrivateMediaStorage
 from django.core.exceptions import ValidationError
 from django.core.validators import URLValidator
 from django.db import models
@@ -48,9 +48,12 @@ class Applicant(models.Model):
     available_days = models.CharField(max_length=50)
     desired_hourly_wage = models.DecimalField(max_digits=5, decimal_places=2)
     cover_letter = models.TextField(max_length=200)
-    resume = PrivateFileField(
-    upload_to='resumes', blank=True, help_text='PDFs only', validators=[validate_pdf]
+    resume = models.FileField(
+        storage = PrivateMediaStorage(),
+        upload_to='resumes', blank=True, help_text='PDFs only',
+        validators=[validate_pdf]
     )
+
     confirmation = models.BooleanField()
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
