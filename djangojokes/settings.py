@@ -192,6 +192,7 @@ AWS_S3_OBJECT_PARAMETERS = {
 }
 AWS_S3_REGION_NAME = 'us-west-1'  # REPLACE WITH YOUR BUCKET REGION
 
+""""
 STORAGES = {
    "default": {
         "BACKEND" : 'djangojokes.storage_backends.PublicMediaStorage',
@@ -201,6 +202,7 @@ STORAGES = {
         "BACKEND" : 'djangojokes.storage_backends.StaticStorage',
     },
 }
+"""
 
 PRIVATE_FILE_STORAGE = 'djangojokes.storage_backends.PrivateMediaStorage'
 
