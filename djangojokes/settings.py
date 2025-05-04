@@ -15,7 +15,7 @@ SECRET_KEY = 'django-insecure-c^5fr&=fzl!auso)zlvpl62t$0-qv-oc*x-#&20vy++lk(qnua
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['https://djangojokesvejuko-4d99415ae5de.herokuapp.com/']
+ALLOWED_HOSTS = ['https://djangojokesvejuko-4d99415ae5de.herokuapp.com']
 
 INTERNAL_IPS = [ # Necessary for the Debug Toolbar
     '127.0.0.1',
@@ -179,7 +179,7 @@ AWS_S3_OBJECT_PARAMETERS = {
 }
 AWS_S3_REGION_NAME = 'us-west-1'  # REPLACE WITH YOUR BUCKET REGION
 
-""""
+
 STORAGES = {
    "default": {
         "BACKEND" : 'djangojokes.storage_backends.PublicMediaStorage',
@@ -189,7 +189,7 @@ STORAGES = {
         "BACKEND" : 'djangojokes.storage_backends.StaticStorage',
     },
 }
-"""
+
 
 PRIVATE_FILE_STORAGE = 'djangojokes.storage_backends.PrivateMediaStorage'
 
