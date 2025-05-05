@@ -25,7 +25,6 @@ INTERNAL_IPS = [ # Necessary for the Debug Toolbar
 
 
 # Application definition
-SITE_ID = 1
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.admindocs',
