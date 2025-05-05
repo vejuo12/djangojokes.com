@@ -98,6 +98,7 @@ class JobAplicationForm(forms.ModelForm):
         validators= [validate_checked]
     )
 
+
     class Meta:
         model = Applicant
         fields = (
@@ -121,6 +122,7 @@ class JobAplicationForm(forms.ModelForm):
             'cover_letter': forms.Textarea(attrs={'cols': '100', 'rows': '5'}),
 
             'resume': forms.FileInput(attrs={'accept':'application/pdf'}),
+            
             }
         error_messages = {
             'start_date': {
