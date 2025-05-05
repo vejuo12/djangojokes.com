@@ -1,2 +1,2 @@
 release: python manage.py migrate
-web: gunicorn djangojokes.com.wsgi
+web: gunicorn djangojokes.wsgi
