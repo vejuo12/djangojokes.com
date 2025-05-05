@@ -9,7 +9,7 @@ register = template.Library()
 def random_joke():
     count = Joke.objects.count()
 
-    if count >= 0:
+    if count > 0:
         i = random.randint(0, count-1)
         joke = Joke.objects.all()[i]
         return {'joke': joke}
